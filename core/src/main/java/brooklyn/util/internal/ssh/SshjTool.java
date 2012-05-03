@@ -386,7 +386,7 @@ public class SshjTool implements SshTool {
         List<String> cmds = ImmutableList.of(
                 scriptPath,
                 "RESULT=$?",
-                "rm "+scriptPath,
+                //"rm "+scriptPath,
                 "exit $RESULT");
         
         Integer result = acquire(new ShellAction(cmds, out, err));
@@ -885,12 +885,12 @@ public class SshjTool implements SshTool {
         }
     }
     
-    private static <T> T getMandatoryVal(Map<String,?> map, String key, Class<T> clazz) {
+    static <T> T getMandatoryVal(Map<String,?> map, String key, Class<T> clazz) {
         checkArgument(map.containsKey(key), "must contain key '"+key+"'");
         return TypeCoercions.coerce(map.get(key), clazz);
     }
     
-    private static <T> T getOptionalVal(Map<String,?> map, String key, Class<T> clazz, T defaultVal) {
+    static <T> T getOptionalVal(Map<String,?> map, String key, Class<T> clazz, T defaultVal) {
         if (map.containsKey(key)) {
             return TypeCoercions.coerce(map.get(key), clazz);
         } else {
