@@ -30,6 +30,7 @@ import com.google.common.base.Strings
  */
 
 //FIXME ALEX rename SshBasedSoftwareSetup -- or remove altogether
+@Deprecated
 public abstract class SshBasedAppSetup extends StartStopSshDriver implements ScriptRunner {
     protected static final Logger log = LoggerFactory.getLogger(SshBasedAppSetup.class)
 
