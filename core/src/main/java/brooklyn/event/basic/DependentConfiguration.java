@@ -112,13 +112,13 @@ public class DependentConfiguration {
                 });
     }
 
-    private static <T> T waitInTaskForAttributeReady(Entity source, AttributeSensor<T> sensor, Predicate<? super T> ready) {
+    public static <T> T waitInTaskForAttributeReady(Entity source, AttributeSensor<T> sensor, Predicate<? super T> ready) {
         T value = source.getAttribute(sensor);
         if (ready==null) ready = GroovyJavaMethods.truthPredicate();
         if (ready.apply(value)) return value;
         BasicTask current = (BasicTask) BasicExecutionContext.getCurrentExecutionContext().getCurrentTask();
         if (current == null) throw new IllegalStateException("Should only be invoked in a running task");
-        AbstractEntity entity = Iterables.find(current.getTags(), Predicates.instanceOf(AbstractEntity.class));
+        AbstractEntity entity = (AbstractEntity)Iterables.find(current.getTags(), Predicates.instanceOf(AbstractEntity.class));
         if (entity == null) throw new IllegalStateException("Should only be invoked in a running task with an entity tag; "+
                 current+" has no entity tag ("+current.getStatusDetail(false)+")");
         final AtomicReference<T> data = new AtomicReference<T>();

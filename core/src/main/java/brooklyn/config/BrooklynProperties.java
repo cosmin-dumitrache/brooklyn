@@ -16,6 +16,8 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Throwables;
+
 import brooklyn.util.MutableMap;
 import brooklyn.util.ResourceUtils;
 
@@ -25,7 +27,7 @@ import com.google.common.base.Throwables;
 public class BrooklynProperties extends LinkedHashMap {
 
     protected static final Logger LOG = LoggerFactory.getLogger(BrooklynProperties.class);
-    
+
     public static class Factory {
         public static BrooklynProperties newEmpty() {
             return new BrooklynProperties();
@@ -41,10 +43,10 @@ public class BrooklynProperties extends LinkedHashMap {
             return p;
         }
     }
-    
+
     protected BrooklynProperties() {
     }
-    
+
     public BrooklynProperties addEnvironmentVars() {
         putAll(System.getenv());
         return this;
@@ -53,7 +55,7 @@ public class BrooklynProperties extends LinkedHashMap {
         putAll(System.getProperties());
         return this;
     }
-    
+
     public BrooklynProperties addFrom(InputStream i) {
         Properties p = new Properties();
         try {
@@ -85,7 +87,7 @@ public class BrooklynProperties extends LinkedHashMap {
     }
     /**
      * @see ResourceUtils#getResourceFromUrl(String)
-     * 
+     *
      * of the form form file:///home/... or http:// or classpath://xx ;
      * for convenience if not starting with xxx: it is treated as a classpath reference or a file;
      * throws if not found
@@ -97,7 +99,7 @@ public class BrooklynProperties extends LinkedHashMap {
             throw new RuntimeException("Error reading properties from ${url}: "+e, e);
         }
     }
-    
+
     /** expects a property already set in scope, whose value is acceptable to {@link #addFromUrl(String)};
      * if property not set, does nothing */
     public BrooklynProperties addFromUrlProperty(String urlProperty) {
@@ -140,6 +142,7 @@ public class BrooklynProperties extends LinkedHashMap {
      * and 'defaultIfNone' (a default value to return if there is no such property); defaults to no warning and null response */   
     public String getFirst(String ...keys) {
        return getFirst(MutableMap.of(), keys);
+
     }
     public String getFirst(Map flags, String ...keys) {
         for (String k: keys) {
@@ -157,7 +160,7 @@ public class BrooklynProperties extends LinkedHashMap {
                 ((Closure)f).call(keys);
             if (Boolean.TRUE.equals(f))
                 throw new NoSuchElementException("Brooklyn unable to find mandatory property "+keys[0]+
-                    (keys.length>1 ? " (or "+(keys.length-1)+" other possible names, full list is "+keys+")" : "") );
+                        (keys.length>1 ? " (or "+(keys.length-1)+" other possible names, full list is "+keys+")" : "") );
             else
                 throw new NoSuchElementException(""+f);
         }
@@ -166,7 +169,7 @@ public class BrooklynProperties extends LinkedHashMap {
         }
         return null;
     }
-    
+
     @Override
     public String toString() {
         return "BrooklynProperties["+size()+"]";

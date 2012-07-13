@@ -165,7 +165,7 @@ public class FutureValue<T> implements QualifiableFuture<T> {
 
     public Future<T> when(Closure<Boolean> condition) {
         Predicate<T> predicateCondition = JavaGroovyEquivalents.toPredicate(condition);
-        Predicate<T> compound = (validity != null) ? Predicates.and(validity, predicateCondition) : predicateCondition;
+        Predicate<T> compound = (validity != null) ? Predicates.<T>and(validity, predicateCondition) : predicateCondition;
         return new FutureValue<T>(expression, compound);
     }
 

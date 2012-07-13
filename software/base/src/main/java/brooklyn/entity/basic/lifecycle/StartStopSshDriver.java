@@ -161,7 +161,7 @@ public abstract class StartStopSshDriver extends AbstractStartStopDriver impleme
                         //new way, preferred?
                         "ps -p `cat "+pidFile+"`"
 
-                        ).requireResultCode(Predicates.or(Predicates.equalTo(0), Predicates.equalTo(1)));
+                        ).requireResultCode(Predicates.<Integer>or(Predicates.equalTo(0), Predicates.equalTo(1)));
             // 1 is not running
 
             else if (STOPPING.equals(phase))

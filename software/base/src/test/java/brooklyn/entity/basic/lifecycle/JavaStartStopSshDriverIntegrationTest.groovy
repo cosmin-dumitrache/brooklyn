@@ -53,7 +53,6 @@ public class JavaStartStopSshDriverIntegrationTest {
     }
 }
 
-@InheritConstructors
 class MyEntity extends SoftwareProcessEntity {
     
     protected StartStopDriver newDriver(SshMachineLocation loc) {

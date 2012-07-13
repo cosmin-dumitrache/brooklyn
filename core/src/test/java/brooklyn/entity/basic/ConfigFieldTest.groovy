@@ -46,13 +46,11 @@ class ConfigFieldTest {
 //        assertEquals(entity2.getConfig(MySubEntity.SUPER_KEY_1), "changed")
 //    }
 
-    @InheritConstructors
     public static class MyBaseEntity extends AbstractEntity {
         public static final BasicConfigKey SUPER_KEY_1 = [ String, "superKey1", "superKey1 key", "superKey1 default"]
         public static final BasicConfigKey SUPER_KEY_2 = [ String, "superKey2", "superKey2 key", "superKey2 default"]
     }
-    
-    @InheritConstructors
+
     public static class MySubEntity extends MyBaseEntity implements MyInterface {
         public static final BasicConfigKey SUPER_KEY_1 = [ MyBaseEntity.SUPER_KEY_1, "overridden superKey1 default"]
         public static final BasicConfigKey SUB_KEY_2 = [ String, "subKey2", "subKey2 key", "subKey2 default"]

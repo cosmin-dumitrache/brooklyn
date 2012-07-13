@@ -14,11 +14,10 @@ import brooklyn.management.Task
 public class EffectorConcatenateTest {
 
     private static final long TIMEOUT = 10*1000
-    
-    @InheritConstructors
-    public class MyEntity extends AbstractEntity {
 
-        public static Effector<String> CONCATENATE = new EffectorInferredFromAnnotatedMethod<Void>(MyEntity.class, "concatenate", "My effector");
+    public static class MyEntity extends AbstractEntity {
+
+        public static final Effector<String> CONCATENATE = new EffectorInferredFromAnnotatedMethod<Void>(MyEntity.class, "concatenate", "My effector");
     
         public MyEntity(Map flags) {
             super(flags)

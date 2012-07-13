@@ -10,6 +10,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import brooklyn.util.GroovyJavaMethods;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -263,7 +264,7 @@ public class LoadBalancingPolicy<NodeType extends Entity, ItemType extends Movab
         subscribe(item, metric, eventHandler);
         
         // Update the model, including the current metric value (if any).
-        boolean immovable = elvis(item.getConfig(Movable.IMMOVABLE), false);
+        boolean immovable = GroovyJavaMethods.<Boolean>elvis(item.getConfig(Movable.IMMOVABLE), false);
         Number currentValue = item.getAttribute(metric);
         model.onItemAdded(item, parentContainer, immovable);
         if (currentValue != null)
