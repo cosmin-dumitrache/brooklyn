@@ -29,7 +29,7 @@ import brooklyn.event.adapter.JmxHelper
  * Set up a JMX service ready for clients to connect. This consists of an MBean server, a connector server and a naming
  * service.
  */
-class JmxService {
+public class JmxService {
     private static final Logger logger = LoggerFactory.getLogger(JmxService.class)
 
     private MBeanServer server

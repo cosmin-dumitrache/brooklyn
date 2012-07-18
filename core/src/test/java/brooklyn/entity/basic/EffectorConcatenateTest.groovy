@@ -17,7 +17,7 @@ public class EffectorConcatenateTest {
 
     public static class MyEntity extends AbstractEntity {
 
-        public static final Effector<String> CONCATENATE = new EffectorInferredFromAnnotatedMethod<Void>(MyEntity.class, "concatenate", "My effector");
+        public static final Effector<String> CONCATENATE = new EffectorInferredFromAnnotatedMethod<String>(MyEntity.class, "concatenate", "My effector");
     
         public MyEntity(Map flags) {
             super(flags)
@@ -26,7 +26,7 @@ public class EffectorConcatenateTest {
         /**
          * Start the entity in the given collection of locations.
          */
-        String concatenate(@NamedParameter("first") @Description("Locations to start entity in") String first,
+        public String concatenate(@NamedParameter("first") @Description("Locations to start entity in") String first,
             @NamedParameter("second") @Description("Locations to start entity in") String second) {
             return first+second
         }
