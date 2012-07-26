@@ -8,6 +8,7 @@ import brooklyn.cli.commands.UndeployCommand;
 import brooklyn.cli.commands.CatalogEntitiesCommand;
 import brooklyn.cli.commands.CatalogPoliciesCommand;
 import brooklyn.cli.commands.ListApplicationsCommand;
+import brooklyn.cli.commands.ListLocationsCommand;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import org.iq80.cli.Cli;
@@ -81,6 +82,7 @@ public class Client {
                         DeployCommand.class,
                         UndeployCommand.class,
                         ListApplicationsCommand.class,
+                        ListLocationsCommand.class,
                         CatalogEntitiesCommand.class,
                         CatalogPoliciesCommand.class
                 );
