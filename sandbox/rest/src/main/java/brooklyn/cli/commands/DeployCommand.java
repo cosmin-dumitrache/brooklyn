@@ -18,6 +18,8 @@ import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 @Command(name = "deploy", description = "Deploys the specified application using given config, classpath, location, etc")
 public class DeployCommand extends BrooklynCommand {
@@ -65,9 +67,6 @@ public class DeployCommand extends BrooklynCommand {
         if(locations!=null)
             throw new UnsupportedOperationException(
                     "The \"--location\",\"--locations\" options are not supported yet");
-        if(config!=null)
-            throw new UnsupportedOperationException(
-                    "The \"--config\" option is not supported yet");
 
         // Format overrides inference
         if (format == null) {
@@ -81,7 +80,11 @@ public class DeployCommand extends BrooklynCommand {
 
             ApplicationSpec applicationSpec = new ApplicationSpec(
                     appClassName, // name
-                    Sets.newHashSet(new EntitySpec(appClassName)), // entities
+                    Sets.newHashSet(new EntitySpec(
+                            appClassName, // name
+                            appClassName, // type
+                            toMap(config) // config map
+                    )), // entities
                     Sets.newHashSet("/v1/locations/1") // locations
             );
             objectJsonString = getJsonParser().writeValueAsString(applicationSpec);
@@ -193,4 +196,22 @@ public class DeployCommand extends BrooklynCommand {
             return CLASS_FORMAT;
         }
     }
+
+    /**
+     * Parses a string that looks like k1=v1,k2=v2 into a Map object
+     *
+     * @param {@link String} that looks like "k1=v1,k2=v2"
+     * @return A {@link Map} representation of the string
+     */
+    private Map<String, String> toMap(String input) {
+        Map<String, String> map = new HashMap<String, String>();
+        if(input==null) return map;
+        String[] array = input.split(",");
+        for (String str : array) {
+            String[] pair = str.split("=");
+            map.put(pair[0], pair[1]);
+        }
+        return map;
+    }
+
 }
