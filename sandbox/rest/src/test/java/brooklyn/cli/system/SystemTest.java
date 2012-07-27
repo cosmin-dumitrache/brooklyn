@@ -1,5 +1,6 @@
-package brooklyn.cli;
+package brooklyn.cli.system;
 
+import brooklyn.cli.Client;
 import brooklyn.cli.commands.CommandExecutionException;
 import brooklyn.entity.basic.BasicEntity;
 import brooklyn.policy.basic.GeneralPurposePolicy;
@@ -21,20 +22,20 @@ import static org.testng.Assert.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 
-public class ClientTest {
+public abstract class SystemTest {
 
-    private final static Log LOG = Log.forClass(ClientTest.class);
+    protected final static Log LOG = Log.forClass(SystemTest.class);
 
-    private BrooklynService brooklynServer;
-    private ApplicationManager applicationManager;
-    private Client brooklynClient;
+    protected BrooklynService brooklynServer;
+    protected ApplicationManager applicationManager;
+    protected Client brooklynClient;
 
     private ByteArrayOutputStream outBytes;
     private PrintStream out;
     private ByteArrayOutputStream errBytes;
     private PrintStream err;
 
-    File tempConfigFile;
+    private File tempConfigFile;
 
     protected String standardOut() {
         return outBytes.toString();
@@ -136,12 +137,13 @@ public class ClientTest {
         }
     }
 
+
     @Test(dependsOnMethods = {"testDeployCreatesApp"})
     public void testListApplicationsShowsRunningApp() throws Exception {
         try {
             String[] args = {"list-applications"};
             brooklynClient.run(args);
-            assertThat(standardOut(), containsString("brooklyn.cli.ExampleApp [RUNNING]"));
+            assertThat(standardOut(), containsString("brooklyn.cli.system.ExampleApp [RUNNING]"));
         } catch (Exception e) {
             LOG.error("stdout="+standardOut()+"; stderr="+standardErr(), e);
             throw e;
@@ -151,9 +153,9 @@ public class ClientTest {
     @Test(dependsOnMethods = {"testDeployCreatesApp"})
     public void testUndeployStopsRunningApp() throws Exception {
         try {
-            String[] args = {"undeploy","brooklyn.cli.ExampleApp"};
+            String[] args = {"undeploy","brooklyn.cli.system.ExampleApp"};
             brooklynClient.run(args);
-            assertThat(standardOut(), containsString("Application has been undeployed: brooklyn.cli.ExampleApp"));
+            assertThat(standardOut(), containsString("Application has been undeployed: brooklyn.cli.system.ExampleApp"));
         } catch (Exception e) {
             LOG.error("stdout="+standardOut()+"; stderr="+standardErr(), e);
             throw e;
@@ -163,7 +165,7 @@ public class ClientTest {
     @Test(dependsOnMethods = {"testUndeployStopsRunningApp"}, expectedExceptions = {CommandExecutionException.class})
     public void testUndeployFailsGracefulyIfNoAppRunning() throws Exception {
         try {
-            String[] args = {"undeploy","brooklyn.cli.ExampleApp"};
+            String[] args = {"undeploy","brooklyn.cli.system.ExampleApp"};
             brooklynClient.run(args);
             assertThat(standardOut(), containsString("Application 'brooklyn.test.entity.TestApplication' not found"));
         } catch (Exception e) {

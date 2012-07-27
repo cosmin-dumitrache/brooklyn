@@ -14,16 +14,10 @@ import org.iq80.cli.OptionType;
 import org.iq80.cli.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.org.mozilla.javascript.internal.LazilyLoadedCtor;
-
-import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.net.ConnectException;
 import java.util.concurrent.Callable;
 import java.lang.UnsupportedOperationException;
-
-import static com.sun.jersey.api.client.ClientResponse.*;
 
 public abstract class BrooklynCommand implements Callable<Void> {
 

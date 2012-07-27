@@ -1,7 +1,8 @@
-package brooklyn.cli.commands;
+package brooklyn.cli.old;
 
 import static org.testng.Assert.assertEquals;
 
+import brooklyn.cli.commands.DeployCommand;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

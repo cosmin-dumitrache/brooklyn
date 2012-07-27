@@ -1,8 +1,7 @@
-package brooklyn.cli;
+package brooklyn.cli.system;
 
 import brooklyn.entity.Entity;
 import brooklyn.entity.basic.AbstractApplication;
-
 import java.util.Map;
 
 /**

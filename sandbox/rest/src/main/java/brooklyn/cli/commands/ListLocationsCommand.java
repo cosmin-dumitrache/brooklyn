@@ -1,6 +1,5 @@
 package brooklyn.cli.commands;
 
-import brooklyn.rest.api.Application;
 import brooklyn.rest.api.LocationSummary;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
