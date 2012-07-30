@@ -1,5 +1,16 @@
 package brooklyn.cli.parse;
 
+import brooklyn.cli.Client;
+import brooklyn.cli.commands.BrooklynCommand;
+import brooklyn.cli.commands.DeployCommand;
+import brooklyn.cli.commands.UndeployCommand;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeGroups;
+import org.testng.annotations.Test;
+import static org.testng.Assert.assertTrue;
+import org.iq80.cli.ParseException;
+
+
 /**
  * This category of tests checks if the client can correctly transform some
  * user provided arguments into the Client's internal representation.
@@ -10,8 +21,14 @@ package brooklyn.cli.parse;
  *
  * The test will check to make sure that this is indeed the internal representation that we expect.
  */
+@Test(groups = {"ParseTest"})
 public abstract class ParseTest {
 
-    // TODO
+    protected static Client brooklynClient;
+
+    @BeforeGroups(groups = {"ParseTest"})
+    public void oneTimeSetUp() throws Exception {
+        brooklynClient = new Client();
+    }
 
 }
