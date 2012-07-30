@@ -31,14 +31,16 @@ public class Client {
     private PrintStream out;
     private PrintStream err;
 
-    private static Cli<BrooklynCommand> parser = buildCli();
+    private Cli<BrooklynCommand> parser;
 
     public Client() {
+        parser = buildCli();
         this.out = System.out;
         this.err = System.err;
     }
 
     public Client(PrintStream out, PrintStream err) {
+        parser = buildCli();
         this.out = out;
         this.err = err;
     }
@@ -51,7 +53,7 @@ public class Client {
             // looks like the user typed it wrong
             LOG.error("Error parsing command "+ Arrays.toString(args), pe);
             System.err.println("Parse error: " + pe.getMessage());
-            System.err.println(getUsageInfo(parser));
+            System.err.println(getUsageInfo(client.getParser()));
             System.exit(PARSE_ERROR);
         } catch (Exception e) {
             // unexpected error during command execution
@@ -71,7 +73,7 @@ public class Client {
     }
 
     @VisibleForTesting
-    static Cli<BrooklynCommand> buildCli() {
+    private Cli<BrooklynCommand> buildCli() {
         @SuppressWarnings({ "unchecked" })
         Cli.CliBuilder<BrooklynCommand> builder = Cli.buildCli("brooklyn", BrooklynCommand.class)
                 .withDescription("Brooklyn CLI client")
@@ -95,6 +97,11 @@ public class Client {
         Help.help(parser.getMetadata(), ImmutableList.of("brooklyn"),help);
         help.append("See 'brooklyn help <command>' for more information on a specific command.");
         return help.toString();
+    }
+
+    @VisibleForTesting
+    public Cli<BrooklynCommand> getParser() {
+        return parser;
     }
 
 }
