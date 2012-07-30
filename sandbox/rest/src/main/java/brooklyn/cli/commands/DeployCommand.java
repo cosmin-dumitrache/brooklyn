@@ -24,9 +24,9 @@ import java.util.Map;
 @Command(name = "deploy", description = "Deploys the specified application using given config, classpath, location, etc")
 public class DeployCommand extends BrooklynCommand {
 
-    static final String JSON_FORMAT = "json";
-    static final String GROOVY_FORMAT = "groovy";
-    static final String CLASS_FORMAT = "class";
+    public static final String JSON_FORMAT = "json";
+    public static final String GROOVY_FORMAT = "groovy";
+    public static final String CLASS_FORMAT = "class";
 
     @Option(name = "--format",
             allowedValues = {JSON_FORMAT, GROOVY_FORMAT, CLASS_FORMAT},
@@ -40,23 +40,24 @@ public class DeployCommand extends BrooklynCommand {
     @Option(name = { "--location", "--locations" },
             title = "Location list",
             description = "Specifies the locations where the application will be launched. You can specify more than one location like this: \"loc1,loc2,loc3\"")
-    public String locations;
+    public String locations = null;
 
     @Option(name = "--config",
             title = "Configuration parameters list",
             description = "Pass the config parameters to the application like this: \"A=B,C=D\"")
-    public String config;
+    public String config = null;
 
     @Option(name = "--classpath",
             description = "Upload the given classes")
-    public String classpath;
+    public String classpath = null;
 
     @Arguments(title = "APP",
-            description = "where APP can be\n" +
+               required = true,
+               description = "where APP can be\n" +
                     "    * a fully qualified class-name of something on the classpath\n" +
                     "    * path or URL to a script file (if ends .groovy)\n" +
                     "    * path or URL to a JSON file (if ends .json)")
-    public String app;
+    public String app = null;
 
     public void run() throws Exception {
 
