@@ -21,6 +21,7 @@
         <dropwizard.version>0.3.1</dropwizard.version>
         <slf4j.version>1.6.4</slf4j.version>
         <reflections.version>0.9.5</reflections.version>
+        <mockwebserver.version>20120401</mockwebserver.version>
     </properties>
 
     <dependencies>
@@ -129,6 +130,13 @@
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.7</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.mockwebserver</groupId>
+            <artifactId>mockwebserver</artifactId>
+            <version>${mockwebserver.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
