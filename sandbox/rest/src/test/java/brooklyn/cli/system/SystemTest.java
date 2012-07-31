@@ -5,7 +5,6 @@ import brooklyn.rest.BrooklynService;
 import brooklyn.rest.core.ApplicationManager;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Files;
-import com.yammer.dropwizard.logging.Log;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
@@ -14,6 +13,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 import java.io.InputStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This category of tests checks the client against the actual REST server.
@@ -27,7 +28,7 @@ import java.io.InputStream;
 @Test(groups = {"SystemTest"})
 public abstract class SystemTest {
 
-    protected final static Log LOG = Log.forClass(SystemTest.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(SystemTest.class);
 
     protected static BrooklynService brooklynServer;
     protected static ApplicationManager applicationManager;

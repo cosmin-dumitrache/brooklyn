@@ -1,5 +1,7 @@
 package brooklyn.cli.http;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * This category of tests checks if the client can generate the correct HTTP requests for a
  * certain subtype of {@link BrooklynCommand} with a certain configuration of its attributes.
@@ -18,5 +20,6 @@ package brooklyn.cli.http;
 public abstract class HttpTest {
 
     // TODO
+    protected static final Logger LOG = LoggerFactory.getLogger(HttpTest.class);
 
 }
