@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  *
  * The test will check that this is indeed the standard out/err message that we expect
  */
-@Test(groups = {"SystemTest"})
+@Test(groups = {"SystemTest", "Integration"})
 public abstract class SystemTest {
 
     protected static final Logger LOG = LoggerFactory.getLogger(SystemTest.class);
